@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day 💖</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+        .container {
+            padding: 60px 0;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            background-color: #fff;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.02);
+        }
+        h1, h2, h3 {
+            font-family: 'Dancing Script', cursive;
+            color: #d81b60;
+        }
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        .heart-btn {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .heart-btn:hover {
+            transform: scale(1.3);
+        }
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .image-gallery img {
+            max-width: 300px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .image-gallery img:hover {
+            transform: scale(1.1);
+        }
+        .countdown {
+            font-size: 1.5rem;
+            color: #d81b60;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1rem;
+            color: #777;
+        }
+        /* Floating Heart Animation */
+        @keyframes floatHeart {
+            0% { transform: translateY(0px); opacity: 0.8; }
+            100% { transform: translateY(-30px); opacity: 0.3; }
+        }
+        .heart-animation {
+            font-size: 3rem;
+            animation: floatHeart 2s infinite alternate ease-in-out;
+            color: red;
+        }
+
+        /* Floating Hearts */
+        .floating-hearts {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            animation: floatHearts 5s infinite alternate ease-in-out;
+        }
+        @keyframes floatHearts {
+            0% { transform: translateY(0px); opacity: 0.8; }
+            100% { transform: translateY(-30px); opacity: 0.3; }
+        }
+
+
+        /* Background Gradient */
+        body {
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        /* Full-Screen Overlay */
+        #valentineOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            z-index: 9999;
+            color: white;
+        }
+
+        /* Romantic Text */
+        #valentineOverlay h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Fade-in Effect */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Valentine Buttons */
+        .valentine-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .valentine-btn {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .yes-btn {
+            background-color: #ff4081;
+            color: white;
+        }
+
+        .no-btn {
+            background-color: white;
+            color: #ff4081;
+            border: 2px solid #ff4081;
+        }
+
+        .valentine-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Wrong Answer Message */
+        #wrongAnswer {
+            display: none;
+            color: #ffeb3b;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+     <!-- Valentine's Proposal Overlay -->
+     <div id="valentineOverlay">
+        <h1>Will you be my Valentine? 💖</h1>
+        <div class="valentine-buttons">
+            <button class="valentine-btn yes-btn" onclick="goToMainPage()">Yes 💕</button>
+            <button class="valentine-btn no-btn" onclick="showWrongAnswer()">No 😢</button>
+        </div>
+        <p id="wrongAnswer">Wrong answer! Try again... 😜</p>
+    </div>
+
+    <script>
+        function goToMainPage() {
+            document.getElementById("valentineOverlay").style.display = "none";
+        }
+
+        function showWrongAnswer() {
+            let message = document.getElementById("wrongAnswer");
+            message.style.display = "block";
+            setTimeout(() => {
+                message.style.display = "none";
+            }, 2000); // Hide after 2 seconds
+        }
+    </script>
+    <div class="container">
+
+ <!-- Hero Section -->
+ <div class="hero-section text-center position-relative">
+     <!--<div class="floating-hearts">💖 ❤️ 💕 💞 ❤️ 💖</div>-->
+    <div class="hero-content">
+        <div class="profile-image">
+            <img src="Lusi1.jpg" alt="Lusi" class="img-fluid rounded-circle shadow-lg">
+        </div>
+        <h1 class="mt-3">💖 Happy Valentine's Day, <span class="name-highlight">Lusi!</span> 💖</h1>
+        <p class="lead">You are the most special person in my life. Even if I’m not there with you physically, my heart is always with you. 💕</p>
+        <div class="heart-animation">❤️</div>
+    </div>
+</div>
+
+<style>
+    /* Hero Section Styling */
+    .hero-section {
+        position: relative;
+        height: 110vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+        color: white;
+        padding: 40px;
+        overflow: hidden;
+    }
+
+    /* Profile Image Styling */
+    .profile-image img {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        border: 5px solid white;
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .profile-image img:hover {
+        transform: scale(1.1);
+    }
+
+    /* Name Highlight */
+    .name-highlight {
+        font-weight: bold;
+        color: #ffe0f0;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Heart Animation */
+    .heart-animation {
+        font-size: 3rem;
+        animation: heartbeat 1.5s infinite;
+        margin-top: 20px;
+    }
+
+    /* Floating Hearts */
+    .hero-section::before {
+        content: "❤️ ❤️ ❤️";
+        position: absolute;
+        font-size: 2rem;
+        color: rgba(255, 255, 255, 0.5);
+        animation: floatHearts 5s infinite alternate ease-in-out;
+    }
+
+    /* Keyframes for Text Fade-In */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Keyframes for Heartbeat */
+    @keyframes heartbeat {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    /* Floating Hearts Animation */
+    @keyframes floatHearts {
+        0% { transform: translateY(0px); opacity: 0.8; }
+        100% { transform: translateY(-40px); opacity: 0.3; }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .hero-section {
+            height: auto;
+            padding: 60px 20px;
+        }
+    }
+</style>
+
+
+        <!-- Special Memory: Celebrating Her Beauty -->
+<div class="section">
+    <div class="container">
+        <h2 class="text-center display-4" style="font-weight: bold; color: #d81b60;">💖 The Beauty That Is You 💖</h2>
+        <p class="text-center lead mt-3" style="max-width: 700px; margin: auto;">
+            Your beauty isn’t just in how you look—it’s in the way you love, the way you care, and the way you inspire me every day.  
+        </p>
+
+        <!-- Beauty Section 1 - Your Eyes -->
+        <div class="row align-items-center beauty-section">
+            <div class="col-md-6 text-md-end">
+                <h3>🌸 Your Eyes</h3>
+                <p>They shine with kindness, depth, and warmth. Every time I look into them, I see love, dreams, and a beautiful future together.</p>
+            </div>
+            <div class="col-md-6 text-md-start">
+                <img src="Lusi2.jpg" alt="Her Beautiful Eyes" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+
+        <!-- Beauty Section 2 - Your Smile -->
+<div class="row align-items-center beauty-section">
+    <div class="col-md-6 text-md-start order-md-2">
+        <h3>🌷 Your Smile</h3>
+        <p>Your smile is like sunshine—it brightens every day and makes my heart race. 😊</p>
+    </div>
+    <div class="col-md-6 text-md-end order-md-1">
+        <img src="Lusi3.jpg" alt="Her Radiant Smile" class="img-fluid rounded shadow-lg">
+    </div>
+</div>
+
+<!-- Beauty Section 3 - Your Skin -->
+<div class="row align-items-center beauty-section">
+    <div class="col-md-6 text-md-end">
+        <h3>🌺 Your Beautiful Skin</h3>
+        <p>Your dark skin glows like the night sky, smooth and radiant. It’s warmth, beauty, and confidence all in one. You shine effortlessly. ✨</p>
+    </div>
+    <div class="col-md-6 text-md-start">
+        <img src="Lusi5.jpg" alt="Her Beautiful Skin" class="img-fluid rounded shadow-lg">
+    </div>
+</div>
+
+<!-- Beauty Section 4 - Your Elegance & Grace -->
+<div class="row align-items-center beauty-section">
+    <div class="col-md-6 text-md-start order-md-2">
+        <h3>💃 Your Elegance & Grace</h3>
+        <p>The way you move, the way you carry yourself—so effortlessly beautiful. You radiate confidence and grace, turning every moment into something magical. 💫</p>
+    </div>
+    <div class="col-md-6 text-md-end order-md-1">
+        <img src="Lusi4.jpg" alt="Her Elegance" class="img-fluid rounded shadow-lg">
+    </div>
+</div>
+
+<p class="mt-5 text-muted text-center" style="font-style: italic; font-size: 1.2rem; max-width: 700px; margin: auto;">
+    "You are beautiful beyond words—not just in how you look, but in how you love, how you shine, and how you make the world a better place." 💕
+</p>
+
+
+<style>
+    .section {
+        background-color: #ffffff;
+        padding: 60px 20px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    .beauty-section {
+        margin-bottom: 50px;
+    }
+
+    /* Make sure images are properly sized */
+    .beauty-section img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .beauty-section img:hover {
+        transform: scale(1.05);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .beauty-section .row {
+            text-align: center;
+        }
+
+        .beauty-section img {
+            max-width: 80%;
+            margin: auto;
+        }
+    }
+</style>
+
+
+
+
+
+   <!-- Love Messages Section -->
+<div class="section">
+    
+        <h2 class="text-center">💖 What I Love About You 💖</h2>
+        <p class="text-center">There are countless reasons why you are the most incredible person I know. Here are just a few that make my heart overflow with love for you. 💕</p>
+        
+        <div class="love-list mt-4">
+            <div class="love-item">
+                <h3>💗 Your Compassion</h3>
+                <p>You have the kindest heart, always thinking of others and spreading warmth wherever you go.</p>
+            </div>
+            <div class="love-item">
+                <h3>💗 Your Wisdom</h3>
+                <p>You see the world with depth and understanding. The way you think, the way you process life—it's something I truly admire about you.</p>
+            </div>
+            
+            <div class="love-item">
+                <h3>💗 Your Strength</h3>
+                <p>Through every challenge, you rise with grace and resilience. Your strength inspires me daily.</p>
+            </div>
+            <div class="love-item">
+                <h3>💗 Your Kindness</h3>
+                <p>The way you care for people, even in the smallest ways, is what makes you truly special.</p>
+            </div>
+            <div class="love-item">
+                <h3>💗 Your Laughter</h3>
+                <p>Your laughter is the sweetest melody I could ever hear. It’s contagious and fills every moment with joy.</p>
+            </div>
+            <div class="love-item">
+                <h3>💗 Your Love</h3>
+                <p>The way you love—purely, deeply, and unconditionally—makes me feel like the luckiest person in the world. 💕</p>
+            </div>
+        </div>
+
+        <p class="mt-4 text-muted text-center" style="font-style: italic; font-size: 1.1rem;">
+            "You are my heart’s greatest treasure. I cherish you for who you are, and I love you more than words can ever express." 💞
+        </p>
+    </div>
+</div>
+
+<style>
+    /* Love List Styling */
+    .love-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .love-item {
+        background: #ffe0f0;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .love-item:hover {
+        transform: scale(1.05);
+    }
+
+    .love-item h3 {
+        color: #d81b60;
+        font-weight: bold;
+    }
+
+    .love-item p {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .love-list {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+
+
+        <!-- A Letter to You Section -->
+<div class="section letter-section">
+    <div class="container text-center">
+        <h2 class="text-white fw-bold">💌 A Letter to You 💌</h2>
+        <p class="lead text-white mt-3" style="max-width: 700px; margin: auto;">
+            Some feelings are too deep for words, but here’s a little piece of my heart for you.  
+        </p>
+
+        <div class="letter-card">
+            <div class="floating-hearts">❤️ 💕 💖 💞 ❤️</div>
+            <p class="letter-text">
+                My Love,  
+                <br><br>
+                I honestly don’t know how I got this lucky. I prayed for someone kind, someone who shared my faith and my values, someone who had a heart for people. But God, in His goodness, gave me you—someone far more extraordinary than I ever could have imagined.  
+                <br><br>
+                You are a beautiful reminder that love is not just about finding the right person, but about discovering someone whose presence feels like home. And with you, I have found home.  
+                <br><br>
+                Every moment with you is a blessing—the way we laugh together, the deep conversations, the simple joys of just being in your presence. There’s an unspoken warmth in the way you look at me, a quiet reassurance in the way you hold my hand. And I miss that. I miss **you.**  
+                <br><br>
+                Being far from you right now is tough. I wish I could be next to you, celebrating today the way it’s meant to be celebrated—with you in my arms, stealing kisses and making new memories. But no matter the distance, know that my heart is always with you, counting down the days until we’re together again.  
+                <br><br>
+                Until then, hold onto this letter as a piece of me, a reminder of how much I care about you, how much I love being around you. No matter the distance, you’re always on my mind, always in my heart.
+                <br><br>
+                **I like you so much, more than I can ever put into words.** You mean so much to me, and I can’t wait for the moments ahead. 💕    
+                <br>
+                <span class="signature">— M.Ntjatje</span>
+            </p>
+        </div>
+        
+
+        <p class="mt-5 text-white" style="font-style: italic; font-size: 1.2rem;">
+            “Every good and perfect gift is from above, coming down from the Father of the heavenly lights.” — James 1:17 ✨ 
+        </p>
+    </div>
+</div>
+
+<style>
+    /* Letter Section Background */
+    .letter-section {
+        background: linear-gradient(to bottom, #ff758c, #ff7eb3);
+        padding: 100px 20px;
+        position: relative;
+    }
+
+    /* Letter Card Styling */
+    .letter-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        max-width: 700px;
+        margin: auto;
+        position: relative;
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.5rem;
+        line-height: 1.8;
+        text-align: left;
+        color: #444;
+    }
+
+    /* Floating Hearts Animation */
+    .floating-hearts {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        color: rgba(255, 255, 255, 0.9);
+        animation: floatHearts 4s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatHearts {
+        0% { transform: translate(-50%, 0px); opacity: 0.8; }
+        100% { transform: translate(-50%, -20px); opacity: 0.5; }
+    }
+
+    /* Signature Styling */
+    .signature {
+        font-style: italic;
+        font-weight: bold;
+        display: block;
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    /* Mobile Optimization */
+    @media (max-width: 768px) {
+        .letter-card {
+            padding: 30px;
+            font-size: 1.3rem;
+        }
+        .floating-hearts {
+            font-size: 1.5rem;
+            top: -20px;
+        }
+    }
+</style>
+
+
+        <!-- Memories Section -->
+<div class="section">
+    <div class="card">
+        <h2 class="text-center">💖 Our Beautiful Moments Together 💖</h2>
+        <p class="text-center lead">
+            Every moment spent with you is a treasure. I cherish these memories, and I can’t wait to create even more beautiful ones with you.  
+        </p>
+
+        <!-- Video Slideshow (Auto-playing, Muted, Plays Fully Before Transition) -->
+        <div id="videoCarousel" class="carousel slide carousel-fade mt-4">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <video class="d-block w-100 video-slide" muted playsinline>
+                        <source src="vid1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video class="d-block w-100 video-slide" muted playsinline>
+                        <source src="vid4.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video class="d-block w-100 video-slide" muted playsinline>
+                        <source src="vid3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#videoCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#videoCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+
+        <!-- Image Gallery -->
+        <div class="image-gallery mt-5">
+            <img src="Us1.jpg" alt="Our Image 1">
+            <img src="Us2.jpg" alt="Our Image 2">
+            <img src="Us3.jpg" alt="Our Image 3">
+        </div>
+
+        <p class="mt-4 text-muted text-center" style="font-style: italic; font-size: 1.2rem;">
+            "With you, every moment is a memory worth keeping. I look forward to many more adventures, laughter, and love with you." 💕
+        </p>
+    </div>
+</div>
+
+<style>
+    /* Memories Section Styling */
+    .section {
+        background-color: #ffffff;
+        padding: 60px 20px;
+    }
+
+    .card {
+        padding: 40px;
+        border-radius: 15px;
+        background: #fff;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Video Slideshow */
+    .carousel {
+        max-width: 750px;
+        margin: auto;
+    }
+
+    /* Fixing Transition Issue */
+    .carousel-item {
+        transition: opacity 1s ease-in-out !important; /* Smooth fade transition */
+        opacity: 0; /* Start hidden */
+        position: absolute; /* Prevent sizing changes */
+        width: 100%;
+    }
+
+    .carousel-item.active {
+        opacity: 1 !important; /* Make active slide visible */
+        position: relative;
+    }
+
+    .video-slide {
+        width: 100%;
+        max-height: 450px;
+        border-radius: 15px;
+        object-fit: cover;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        filter: invert(100%);
+    }
+
+    /* Image Gallery */
+    .image-gallery {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .image-gallery img {
+        max-width: 300px;
+        border-radius: 15px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .image-gallery img:hover {
+        transform: scale(1.05);
+    }
+
+    /* Mobile Optimization */
+    @media (max-width: 768px) {
+        .image-gallery {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .carousel {
+            max-width: 100%;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let videoCarousel = document.getElementById("videoCarousel");
+        let carousel = new bootstrap.Carousel(videoCarousel, {
+            interval: false, // Disable automatic sliding
+            ride: false
+        });
+
+        let videos = document.querySelectorAll(".video-slide");
+        let items = document.querySelectorAll(".carousel-item");
+
+        videos.forEach((video, index) => {
+            video.addEventListener("ended", function () {
+                let nextIndex = (index + 1) % items.length; // Get next video index
+                carousel.to(nextIndex); // Move carousel to next video
+                videos[nextIndex].play(); // Play the next video
+            });
+        });
+
+        // Play the first video on page load
+        videos[0].play();
+    });
+</script>
+
+
+    </div>
+
+    <div class="footer">
+        <p>Created with love ❤️ for Lukie by Monde</p>
+    </div>
+
+    <script>
+        document.getElementById('memoryButton').addEventListener('click', function() {
+            document.getElementById('memoryImage').style.display = 'block';
+        });
+
+        document.getElementById('heartButton').addEventListener('click', function() {
+            document.getElementById('heartMessages').style.display = 'block';
+            this.style.display = 'none';
+        });
+
+        function updateCountdown() {
+            const nextMeetingDate = new Date('2025-02-28');
+            const currentDate = new Date();
+            const timeDifference = nextMeetingDate - currentDate;
+            const daysLeft = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+            document.getElementById('countdown').textContent = `Only ${daysLeft} days left until we’re together again! 💕`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 86400000);
+    </script>
+
+</body>
+</html>
