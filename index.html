@@ -224,6 +224,51 @@
     }
 }
 
+/* Ensure images do not overflow */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Fix for images inside the gallery */
+.image-gallery img {
+    width: 100%;
+    max-width: 300px; /* Set a reasonable max width */
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+/* Ensure sections have proper padding */
+.section {
+    padding: 20px;
+    overflow: hidden; /* Prevent any content overflow */
+}
+
+/* Make sure flexbox/grid elements wrap properly */
+@media (max-width: 768px) {
+    .image-gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .beauty-section .row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .beauty-section img {
+        max-width: 90%;
+        margin: auto;
+    }
+
+    .hero-section {
+        padding: 50px 20px;
+    }
+}
+
+
     </style>
 </head>
 <body>
