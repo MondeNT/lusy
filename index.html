@@ -729,78 +729,130 @@ img {
 
 <style>
     /* Memories Section Styling */
-    .section {
-        background-color: #ffffff;
-        padding: 60px 20px;
-    }
+.section {
+    background-color: #ffffff;
+    padding: 60px 20px;
+}
 
-    .card {
-        padding: 40px;
-        border-radius: 15px;
-        background: #fff;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-    }
+/* Card Styling */
+.card {
+    padding: 40px;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
 
-    /* Video Slideshow */
+/* Video Slideshow */
+.carousel {
+    max-width: 750px;
+    margin: auto;
+    position: relative;
+}
+
+/* Smooth Transition for Videos */
+.carousel-item {
+    transition: opacity 1s ease-in-out !important;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.carousel-item.active {
+    opacity: 1 !important;
+    position: relative;
+}
+
+/* Video Styling */
+.video-slide {
+    width: 100%;
+    max-height: 450px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+/* Customizing Carousel Controls */
+.carousel-control-prev, .carousel-control-next {
+    filter: invert(100%);
+}
+
+/* Image Gallery */
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Image Styling */
+.image-gallery img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 1024px) {
     .carousel {
-        max-width: 750px;
-        margin: auto;
-    }
-
-    /* Fixing Transition Issue */
-    .carousel-item {
-        transition: opacity 1s ease-in-out !important; /* Smooth fade transition */
-        opacity: 0; /* Start hidden */
-        position: absolute; /* Prevent sizing changes */
-        width: 100%;
-    }
-
-    .carousel-item.active {
-        opacity: 1 !important; /* Make active slide visible */
-        position: relative;
+        max-width: 90%;
     }
 
     .video-slide {
-        width: 100%;
-        max-height: 450px;
-        border-radius: 15px;
-        object-fit: cover;
+        max-height: 400px;
     }
 
-    .carousel-control-prev, .carousel-control-next {
-        filter: invert(100%);
-    }
-
-    /* Image Gallery */
     .image-gallery {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
+        gap: 15px;
     }
 
     .image-gallery img {
-        max-width: 300px;
-        border-radius: 15px;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 40px 15px;
     }
 
-    .image-gallery img:hover {
-        transform: scale(1.05);
+    .card {
+        padding: 30px;
     }
 
-    /* Mobile Optimization */
-    @media (max-width: 768px) {
-        .image-gallery {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .carousel {
-            max-width: 100%;
-        }
+    .carousel {
+        max-width: 100%;
     }
+
+    .video-slide {
+        max-height: 350px;
+    }
+
+    .image-gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-gallery img {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-slide {
+        max-height: 280px;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        display: none; /* Hides controls on very small screens */
+    }
+}
+
 </style>
 
 <script>
